@@ -31,12 +31,10 @@ public class UserServiceImpl implements UserService {
 		List users = userRepository.findAll();
 		if (users.isEmpty()) {
 			List usersArray = restTemplate.getForEntity("https://jsonplaceholder.typicode.com/users", users.getClass()).getBody();
-			usersArray.stream().map(user -> {
-				mapper. configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+			users = (List) usersArray.stream().map(user -> {
+				mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 				return mapper.convertValue(user, User.class);
 			}).collect(Collectors.toList());
-			users = usersArray;
-			System.out.println(users);
 			return userRepository.saveAll(users);
 		}
 

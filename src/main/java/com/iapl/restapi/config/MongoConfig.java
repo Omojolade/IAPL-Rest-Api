@@ -2,7 +2,11 @@ package com.iapl.restapi.config;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.UUID;
 
+import org.bson.Document;
+import org.bson.UuidRepresentation;
+import org.bson.codecs.configuration.CodecRegistry;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 
@@ -23,8 +27,9 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
 	public MongoClient mongoClient() {
 		ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017/test");
 		MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
-			.applyConnectionString(connectionString)
-			.build();
+				.applyConnectionString(connectionString)
+				.uuidRepresentation(UuidRepresentation.JAVA_LEGACY)
+				.build();
 
 		return MongoClients.create(mongoClientSettings);
 	}
