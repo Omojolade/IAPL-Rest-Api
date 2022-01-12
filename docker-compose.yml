@@ -1,0 +1,11 @@
+version: '3.1'
+
+services:
+  rest-api:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: "8080"
+      PROFILE: "dev"
+      MONGO_URI: "mongodb+srv://demouser:demo%40123@cluster0.vciap.mongodb.net/test?authSource=admin"
